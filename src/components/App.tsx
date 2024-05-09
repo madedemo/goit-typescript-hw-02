@@ -5,7 +5,7 @@ import SearchHeader from './SearchHeader/SearchHeader';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
 import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn';
-import searchPhotos from '../components/services/api';
+import searchPhotos from './services/api';
 import ImageModal from './ImageModal/ImageModal';
 
 function App() {
