@@ -26,3 +26,8 @@
 .searchButton:hover {
   background-color: #0056b3;
 }
+
+.searchButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

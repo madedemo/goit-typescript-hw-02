@@ -1,6 +1,7 @@
 import { ColorRing } from "react-loader-spinner";
+import { FC } from "react";
 
-const Loader = () => {
+const Loader: FC = () => {
   return (
     <div>
       <ColorRing

@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SearchBar from './SearchBar/SearchBar';
 import SearchHeader from './SearchHeader/SearchHeader';
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -8,14 +8,19 @@ import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn';
 import searchPhotos from './services/api';
 import ImageModal from './ImageModal/ImageModal';
 
+interface Image {
+  id: string;
+  alt: string;
+}
+
 function App() {
-  const [query, setQuery] = useState('');
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [page, setPage] = useState(1);
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
+  const [query, setQuery] = useState<string>('');
+  const [images, setImages] = useState<Image[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<string>('');
 
   useEffect(() => {
     if (!query) {
@@ -25,33 +30,34 @@ function App() {
       setLoading(true);
       try {
         const data = await searchPhotos(query, page);
-        setImages(prevImages => [...prevImages, ...data]);
+        setImages(prevImages => [...prevImages, ...data as Image[]]);
         setError(null);
       } catch (err) {
-        setError(err);
+        setError(err as Error);
       }
       setLoading(false);
     };
     getPhotos();
   }, [query, page]);
 
-  const handleSearch = async (query) => {
+
+  const handleSearch = async (query: string) => {
     setQuery(query);
     setPage(1);
     setImages([]);
   };
 
-  const handlePage =  () => {
+  const handlePage = () => {
     setPage(prevPage => prevPage + 1);
   };
 
-  const handleImageClick = (imageUrl) => {
+  const handleImageClick = (imageUrl: string) => {
     setSelectedImage(imageUrl);
     setIsOpenModal(true);
   }
 
   const closeModal = () => {
-    setSelectedImage(null);
+    setSelectedImage('');
     setIsOpenModal(false);
   }
 

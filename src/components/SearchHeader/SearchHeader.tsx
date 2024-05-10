@@ -1,6 +1,11 @@
 import css from './SearchHeader.module.css'
+import { FC } from 'react'
 
-const SeacrchHeader = ({children}) => {
+interface SearchHeaderProps {
+  children: React.ReactNode
+}
+
+const SeacrchHeader: FC<SearchHeaderProps> = ({children}) => {
   return (
     <div className={css.searchHeader}>
       <div>
